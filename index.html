@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project LMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="logo-mark">LMS</div>
+    <input class="project-title-input" id="projectTitle" type="text" value="My Project Title" spellcheck="false"/>
+  </div>
+  <div class="topbar-right">
+    <div class="progress-pill">Progress: <span id="progressText">0 / 9</span></div>
+    <button class="btn btn-ghost" onclick="openExportModal()">Export JSON</button>
+    <button class="btn btn-ghost" onclick="openImportModal()">Import JSON</button>
+    <button class="btn btn-primary" onclick="openStepEditModal()">Edit Step</button>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- RAIL -->
+  <nav class="rail" id="rail">
+    <div class="rail-header">
+      <div class="rail-label">Your Progress</div>
+      <div class="overall-bar">
+        <div class="overall-bar-fill" id="overallBarFill" style="width:0%"></div>
+      </div>
+    </div>
+    <!-- step items injected by JS -->
+  </nav>
+
+  <!-- CONTENT AREA -->
+  <main class="content-area" id="contentArea">
+    <!-- step panes injected by JS -->
+  </main>
+
+</div>
+
+<!-- STEP EDIT MODAL -->
+<div class="modal-overlay" id="stepEditModal">
+  <div class="modal">
+    <h2>Edit Step Info</h2>
+    <p>Update the title, subtitle, and description for this step.</p>
+    <label>Step Title</label>
+    <input id="editTitle" type="text" placeholder="e.g. Project Setup"/>
+    <label>Rail Subtitle (short tagline shown in sidebar)</label>
+    <input id="editSubtitle" type="text" placeholder="e.g. Get your environment ready"/>
+    <label>Step Description</label>
+    <textarea id="editDesc" rows="3" placeholder="Brief intro shown at the top of the step..."></textarea>
+    <label>Instructor Note / Tip (shown as a callout box)</label>
+    <textarea id="editNote" rows="2" placeholder="Optional tip or heads-up for students..."></textarea>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeModal('stepEditModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveStepEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <h2>Export LMS Data</h2>
+    <p>Copy the JSON below to save or share your LMS configuration.</p>
+    <textarea id="exportText" rows="10" readonly style="font-size:11px;font-family:monospace"></textarea>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeModal('exportModal')">Close</button>
+      <button class="btn btn-primary" onclick="copyExport()">Copy to Clipboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="modal-overlay" id="importModal">
+  <div class="modal">
+    <h2>Import LMS Data</h2>
+    <p>Paste a previously exported JSON below to restore your LMS.</p>
+    <textarea id="importText" rows="10" placeholder='Paste JSON here...' style="font-size:11px;font-family:monospace"></textarea>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeModal('importModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="doImport()">Import</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
